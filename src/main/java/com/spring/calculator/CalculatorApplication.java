@@ -18,10 +18,10 @@ public class CalculatorApplication {
 		SpringApplication.run(CalculatorApplication.class, args);
 		System.out.println("Pirmoji spring boot programa");
 	}
-	@GetMapping("/hello")
-	public String hello(@RequestParam(value = "name", defaultValue = "World") String name){
-		return String.format("Hello %s!", name);
-	}
+	//@GetMapping("/hello")
+	//public String hello(@RequestParam(value = "name", defaultValue = "World") String name){
+	//	return String.format("Hello %s!", name);
+	//}
 
 
 }
