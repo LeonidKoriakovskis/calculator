@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -11,8 +11,8 @@
 	<groupId>com.spring</groupId>
 	<artifactId>calculator</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<!--Paketas (archyvas kuriame bus sudeti visi aplikacijos moduliai. war naudojamas aplikacijos idejimui i
-	tomcat severi -->
+	<!-- Paketas(Archyvas)Kuriame bus sudėti visi aplikacijos moduliai.
+	 War naudojamas aplikacijos įdėjimui į tomcat serverį. -->
 	<packaging>war</packaging>
 	<name>calculator</name>
 	<description>Internet calculator</description>
@@ -20,17 +20,32 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
-		<!--Skirtas spring boot web aplikacijoms  -->
+		<!--  Biblioteka skirta Spring Boot aplikacijoms. -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<!--Biblioteka skirta testavimui -->
+		<!-- Biblioteka skirta testams. -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- Jeigu nepridėsime, gausime javax.servlet.ServletException-->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>4.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Reikalingas, kad veiktu projektas su JSP failais -->
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -46,5 +61,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
