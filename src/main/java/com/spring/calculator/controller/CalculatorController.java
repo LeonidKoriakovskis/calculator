@@ -1,6 +1,10 @@
-package com.spring.calculator;
+package com.spring.calculator.controller;
 
+import com.spring.calculator.model.Number;
+import com.spring.calculator.service.NumberService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,12 +21,22 @@ import java.util.HashMap;
 //@RestController nergrazina view
 //Kadangi mums reikia grąžinti view pagal Spring MVC, naudojame @Controller
 @Controller
-// Zymi konfiguracijos komponenta viduje leidzia kurti bean per metodus su @Bean anotacija.
+// @EnableAutoConfiguration - Zymi konfiguracijos komponenta viduje leidzia kurti bean per metodus su @Bean anotacija.
 // Si klases lygio anotacija nurodo spring karkasui "Atspeti" konfiguracija.
 // Rementis priklausomybemis ( Jar bibliotekomis ) kurios programuotojas itraukia i projekta ( Pom.xml
 // Siuo atveju ji veikia kartu su main metodu.
-//@EnableAutoConfiguration
+@EnableAutoConfiguration
 public class CalculatorController {
+    //autowire - naudojamas automatinei priklausomybiu injekcijai
+    //kad panaudoti @Autowired anotacija, reikia pirmiausiai tureti apsirasius @Bean @Configuration kalseje
+    @Autowired
+    //@Qualifier anotacija kartu su @Autowired patikslina su kuriuo konkreciai bean susieti priklausomybe.
+    //Jeigu @Configuration klaseje yra daugiau negu vienas bean, @Qualifier anotacija yra privaloma,
+    //kitu atvieju metama klaida:
+    //'Consider marking one of the beans as @Primary, updating the consumer to accept multiple beans,
+    //or using @Qualifier to identify the bean that should be consumed'
+    @Qualifier("NumberService")
+    public NumberService numberService;
     // Marsrutizavimo informacija. šiuo atveju, ji nurodo Spring karkasui,
     // jog visas HTTP užklausas, kurių kelias yra "/" apdoros metodas home().
     @RequestMapping(method = RequestMethod.GET, value = "/")
@@ -58,17 +72,43 @@ public class CalculatorController {
             } else if(operation.equals("*")) {
                 result = num1 * num2;
             } else if(operation.equals("/")) {
-                result = (double) num1 / num2;
+                result = num1 / num2;
             }
             // ModelMap objektas naudojamas siųsti reikšmes iš Spring MVC controller į JSP
             modelMap.put("num1", num1);
             modelMap.put("num2", num2);
             modelMap.put("operation", operation);
             modelMap.put("result", result);
+
+            //kreipiames i service, kuris savo ruoztu kreipiasi i DAO ir issaugo irasa DB
+            numberService.save(new Number(num1, num2, operation, (int) result));
+
+
             // prefix + pavadinimas jsp failo + suffix
             return "calculate";
 
-
         }
     }
+
+
+    // http://localhost:8080/hello?name=Andrius&surname=Nizevicius
+    // Metodo pavadinimas klaustukas (?) raktas, lygybe, reiksme. Optional jeigu daugiau nori reiksmiu simbolis & (and)
+    @GetMapping("/hello")
+    public String hello(@RequestParam(value = "name", defaultValue = "World") String name2, Integer age) {
+        return " Hello " + name2 + " metai: " + age;
+    }
+
+    @GetMapping("/index")
+    public String index() {
+        return "<h1>Internetinis skaiciuotuvas. Atliks operacijas: </h1><br>" +
+                "&nbsp;&nbsp; sudeti <br>" +
+                "&nbsp;&nbsp; dauginti <br>" +
+                "&nbsp;&nbsp; dalinti <br>" +
+                "&nbsp;&nbsp; atimti <br>";
+    }
+
+
+
+
+
 }
