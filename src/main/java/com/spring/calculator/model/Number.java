@@ -40,8 +40,13 @@ public class Number {
         this.result = result;
     }
 
+    //Butinas, kad Model vaiksciotu tarp fornt end ir back end
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Number(){
