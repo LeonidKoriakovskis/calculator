@@ -1,9 +1,8 @@
 package com.spring.calculator.service;
 
 import com.spring.calculator.model.Number;
-import com.spring.calculator.model.NumberDAO;
+import com.spring.calculator.repository.NumberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,32 +19,31 @@ public class NumberServiceImpl implements NumberService{
     //kitu atvieju metama klaida:
     //'Consider marking one of the beans as @Primary, updating the consumer to accept multiple beans,
     //or using @Qualifier to identify the bean that should be consumed'
-    @Qualifier("NumberDAO")
-    private NumberDAO numberDAO;
+    private NumberRepository numberRepository;
 
     @Override
     public List<Number> getAll() {
-        return numberDAO.findEntities();
+        return numberRepository.findAll();
     }
 
     @Override
     public void save(Number number) {
-        numberDAO.insertEntity(number);
+        numberRepository.save(number);
     }
 
     @Override
     public Number getById(int id){
-        return numberDAO.findEntityByID(id);
+        return numberRepository.findById(id);
     }
 
     @Override
     public void update(Number number) {
-        numberDAO.updateEntity(number);
+        numberRepository.save(number);
     }
 
     @Override
     public void delete(int id) {
-        numberDAO.removeEntityByID(id);
+        numberRepository.deleteById(id);
     }
 
 
