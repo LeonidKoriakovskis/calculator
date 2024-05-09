@@ -1,9 +1,8 @@
 package com.spring.calculator.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 public class User {
@@ -11,9 +10,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Integer id;
+    @Email
     private String email;
-
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{3,32}$",
+            message = "Šį laukelį būtina užpildyti Privaloma įvesti nuo 5 iki 32 simbolių")
     private String password;
+    @Transient
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{3,32}$",
+            message = "Šį laukelį būtina užpildyti Privaloma įvesti nuo 5 iki 32 simbolių")
 
     private String confirmPassword;
 

@@ -9,4 +9,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     // nera butina rasyti query jeigu matchina User objekto reiksme (fielda)
     @Query("select u from User u where u.email = ?1")
     User findByEmail(String email);
+
+    @Query("select u from User u where u.id = ?1")
+    User findById(int id);
 }
