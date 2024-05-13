@@ -2,15 +2,21 @@ package com.spring.calculator.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
 @Entity
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
+    @Column(name = "id")
     private Integer id;
-    @Email
+
+    @NotBlank(message = "Username is required")
+    @Column(name = "username")
+    private String username;
+    @Email(message = "Enter a valid email adress")
+    @Column(name = "email")
     private String email;
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{3,32}$",
             message = "Šį laukelį būtina užpildyti Privaloma įvesti nuo 5 iki 32 simbolių")
@@ -24,20 +30,19 @@ public class User {
     public User() {
     }
 
-    public User(String email, String password, String confirmPassword) {
+    public User(int id, String username, String email, String password, String confirmPassword) {
+        this.id = id;
+        this.username = username;
         this.email = email;
         this.password = password;
         this.confirmPassword = confirmPassword;
     }
 
-    public User(Integer id, String email, String password, String confirmPassword) {
-        this.id = id;
+    public User(String username, String email, String password, String confirmPassword) {
+        this.username = username;
         this.email = email;
         this.password = password;
         this.confirmPassword = confirmPassword;
-
-
-
     }
 
     public Integer getId() {
@@ -46,6 +51,14 @@ public class User {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
@@ -72,13 +85,4 @@ public class User {
         this.confirmPassword = confirmPassword;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", confirmPassword='" + confirmPassword + '\'' +
-                '}';
-    }
 }

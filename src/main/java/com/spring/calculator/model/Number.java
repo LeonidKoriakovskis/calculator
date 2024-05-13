@@ -24,6 +24,10 @@ public class Number {
     @Column(name = "result")
     private int result;
 
+    public Number(){
+
+    }
+
     public Number(int num1, int num2, String operation, int result) {
         this.num1 = num1;
         this.num2 = num2;
@@ -47,10 +51,6 @@ public class Number {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public Number(){
-
     }
 
     public int getNum1() {
