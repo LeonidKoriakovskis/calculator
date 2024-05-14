@@ -27,20 +27,13 @@ import java.util.HashMap;
 // Siuo atveju ji veikia kartu su main metodu.
 @EnableAutoConfiguration
 public class CalculatorController {
-    //autowire - naudojamas automatinei priklausomybiu injekcijai
-    //kad panaudoti @Autowired anotacija, reikia pirmiausiai tureti apsirasius @Bean @Configuration kalseje
+    private final NumberService numberService;
     @Autowired
-    //@Qualifier anotacija kartu su @Autowired patikslina su kuriuo konkreciai bean susieti priklausomybe.
-    //Jeigu @Configuration klaseje yra daugiau negu vienas bean, @Qualifier anotacija yra privaloma,
-    //kitu atvieju metama klaida:
-    //'Consider marking one of the beans as @Primary, updating the consumer to accept multiple beans,
-    //or using @Qualifier to identify the bean that should be consumed'
-    @Qualifier("NumberService")
-    public NumberService numberService;
-    // Marsrutizavimo informacija. šiuo atveju, ji nurodo Spring karkasui,
-    // jog visas HTTP užklausas, kurių kelias yra "/" apdoros metodas home().
-    @RequestMapping(method = RequestMethod.GET, value = "/")
-    public String home(Model model) {
+    public CalculatorController(@Qualifier("NumberService") NumberService numberService) {
+        this.numberService = numberService;;
+    }
+    @RequestMapping(method = RequestMethod.GET, value = "/calculator")
+    public String calculator(Model model) {
         // Jeigu model number nepraeina validacijos - per ji grazinamos validacijos klaidos i vaizda.
         model.addAttribute("number", new Number());
         // Grąžiname JSP failą, turi būti talpinami 'webapp -> WEB-INF -> jsp' aplanke
@@ -121,21 +114,8 @@ public class CalculatorController {
         return "redirect:/rodyti?id=" + number.getId();
     }
 
-    // http://localhost:8080/hello?name=Andrius&surname=Nizevicius
-    // Metodo pavadinimas klaustukas (?) raktas, lygybe, reiksme. Optional jeigu daugiau nori reiksmiu simbolis & (and)
-    @GetMapping("/hello")
-    public String hello(@RequestParam(value = "name", defaultValue = "World") String name2, Integer age) {
-        return " Hello " + name2 + " metai: " + age;
-    }
 
-    @GetMapping("/index")
-    public String index() {
-        return "<h1>Internetinis skaiciuotuvas. Atliks operacijas: </h1><br>" +
-                "&nbsp;&nbsp; sudeti <br>" +
-                "&nbsp;&nbsp; dauginti <br>" +
-                "&nbsp;&nbsp; dalinti <br>" +
-                "&nbsp;&nbsp; atimti <br>";
-    }
+
 
 
 

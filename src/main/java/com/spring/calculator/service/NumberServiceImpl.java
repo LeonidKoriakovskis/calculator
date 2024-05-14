@@ -11,15 +11,11 @@ import java.util.List;
 //Po serviso sluoksniu kreipiames i DAO
 @Service
 public class NumberServiceImpl implements NumberService{
-    //autowire - naudojamas automatinei priklausomybiu injekcijai
-    //kad panaudoti @Autowired anotacija, reikia pirmiausiai tureti apsirasius @Bean @Configuration kalseje
+    private final NumberRepository numberRepository;
     @Autowired
-    //@Qualifier anotacija kartu su @Autowired patikslina su kuriuo konkreciai bean susieti priklausomybe.
-    //Jeigu @Configuration klaseje yra daugiau negu vienas bean, @Qualifier anotacija yra privaloma,
-    //kitu atvieju metama klaida:
-    //'Consider marking one of the beans as @Primary, updating the consumer to accept multiple beans,
-    //or using @Qualifier to identify the bean that should be consumed'
-    private NumberRepository numberRepository;
+    public NumberServiceImpl(NumberRepository numberRepository) {
+        this.numberRepository = numberRepository;
+    }
 
     @Override
     public List<Number> getAll() {

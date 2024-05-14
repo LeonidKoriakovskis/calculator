@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"  %>
 <html>
      <head>
            <title>Skaičius</title>
@@ -30,6 +30,6 @@
                </table>
           </div>
           <br>
-          <a type="button" href="/skaiciai" class="button">Atgal</a>
+          <a type="button" "${pageContext.request.contextPath}/skaiciai" class="button">Atgal</a>
      </body>
 </html>

@@ -1,7 +1,9 @@
 package com.spring.calculator.service;
 
 import com.spring.calculator.model.User;
+import org.springframework.stereotype.Service;
 
+@Service
 public interface UserService {
     void saveUser(User user);
 
@@ -14,4 +16,6 @@ public interface UserService {
     User getUserByEmail(String email);
 
     User getUserByUsername(String username);
+
+    boolean authenticateUser(String username, String password);
 }

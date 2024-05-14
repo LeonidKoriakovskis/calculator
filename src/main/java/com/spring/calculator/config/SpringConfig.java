@@ -16,11 +16,7 @@ import org.springframework.context.annotation.Configuration;
 //viduje leidzia kurti bean per metodus su @Bean
 @Configuration
 public class SpringConfig {
-    //Bean - tai objektai, kurie sudaro Spring aplikacijos pagrinda.
-    //Paprastai tai Java klase, realizuojanti tam tikra interfeisa ir JavaBean specifikacija.
-    //Bean atitinka Singleton sablona - programines irangos projektavimo schema,
-    //kuri riboja klases ivykdyma vienu "vieninteliu" egzemplioriumi.
-    //Tai naudinga, kai reikia tiksliai vieno objekto, norint koordinuoti veiksmus visoje sistemoje.
+
     private final NumberRepository numberRepository;
     private final UserRepository userRepository;
 
@@ -34,12 +30,13 @@ public class SpringConfig {
     @Bean
     @Qualifier("UserService")
     public UserService getUserService() {
-        return new UserServiceImpl();
+        return new UserServiceImpl(userRepository);
     }
+
     @Bean
     @Qualifier("NumberService")
     public NumberService getNumberService() {
-        return new NumberServiceImpl();
+        return new NumberServiceImpl(numberRepository);
     }
 
 }

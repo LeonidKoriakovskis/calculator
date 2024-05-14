@@ -3,28 +3,30 @@ package com.spring.calculator.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 
 @Entity
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer id;
+    private int id;
 
     @NotBlank(message = "Username is required")
     @Column(name = "username")
     private String username;
-    @Email(message = "Enter a valid email adress")
+
+    @Email(message = "Enter a valid email address")
+    @NotBlank(message = "Email is required")
     @Column(name = "email")
     private String email;
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{3,32}$",
-            message = "Šį laukelį būtina užpildyti Privaloma įvesti nuo 5 iki 32 simbolių")
-    private String password;
-    @Transient
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{3,32}$",
-            message = "Šį laukelį būtina užpildyti Privaloma įvesti nuo 5 iki 32 simbolių")
 
+    @NotBlank(message = "Password is required")
+    @Column(name = "password")
+    private String password;
+
+    @Transient
+    @NotBlank(message = "Password confirmation is required")
     private String confirmPassword;
 
     public User() {
@@ -44,6 +46,8 @@ public class User {
         this.password = password;
         this.confirmPassword = confirmPassword;
     }
+
+    // Getters and setters
 
     public Integer getId() {
         return id;
@@ -84,5 +88,4 @@ public class User {
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
     }
-
 }
