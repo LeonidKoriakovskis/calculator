@@ -21,17 +21,17 @@
             <c:forEach var="skaicius" items="${skaiciai}">
 
                  <!-- konstruoja iraso atnaujinimo adresa su skaiciais id -->
-                 <c:url var="atnaujinti" value="/atnaujinti">
+                 <c:url var="atnaujinti" value="/atnaujinti{id}">
                       <c:param name="id" value="${skaicius.id}" />
                  </c:url>
 
                  <!-- konstruoja iraso trynimo adresa su skaiciais id -->
-                 <c:url var="trinti" value="/trinti">
+                 <c:url var="trinti" value="/trinti{id}">
                       <c:param name="id" value="${skaicius.id}" />
                  </c:url>
 
                  <!-- konstruoja iraso perziuros adresa su skaiciaus id -->
-                 <c:url var="rodyti" value="/rodyti">
+                 <c:url var="rodyti" value="/rodyti{id}">
                       <c:param name="id" value="${skaicius.id}" />
                  </c:url>
 

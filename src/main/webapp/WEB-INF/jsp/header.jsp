@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- Compiled and minified CSS -->
@@ -16,7 +16,7 @@
                    <a class="navbar-brand" href="http://localhost:8080/calculator">Calculator</a>
          </div>
          <ul class="nav navbar-nav navbar-left">
-                     <li class="active"><a href="${pageContext.request.contextPath}/allNumbers"> All operations </a></li>
+                     <li class="active"><a href="${pageContext.request.contextPath}/skaiciai"> All operations </a></li>
                      </ul>
                      <ul class="nav navbar-nav navbar-right">
                          <li><a>Welcome, ${sessionScope.username}</a></li>

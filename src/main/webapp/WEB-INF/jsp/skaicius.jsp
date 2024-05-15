@@ -24,12 +24,12 @@
                            <td><b>Antras skaičius:</b></td>
                            <td>${skaicius.num2}</td>
                     <tr>
-                           <td>Rezultatas:</b></td>
+                           <td><b>Rezultatas:</b></td>
                            <td>${skaicius.result}</td>
                     </tr>
                </table>
           </div>
           <br>
-          <a type="button" "${pageContext.request.contextPath}/skaiciai" class="button">Atgal</a>
+          <a type="button" href="${pageContext.request.contextPath}/skaiciai" class="button">Atgal</a>
      </body>
 </html>
